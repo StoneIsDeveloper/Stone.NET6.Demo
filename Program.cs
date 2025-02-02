@@ -1,4 +1,9 @@
+using Stone.NET6.Demo.CustomMiddleware;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<MyCustomMiddleware>();
+
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
@@ -11,11 +16,14 @@ app.Use(async (HttpContext context, RequestDelegate next) =>
 });
 
 //middleware 2
-app.Use(async (HttpContext context, RequestDelegate next) =>
-{
-    await context.Response.WriteAsync("Hello middleware 2;  ");
-    await next(context);
-});
+//app.UseMiddleware<MyCustomMiddleware>();
+app.UseMyCustomMiddleware();
+
+//app.Use(async (HttpContext context, RequestDelegate next) =>
+//{
+//    await context.Response.WriteAsync("Hello middleware 2;  ");
+//    await next(context);
+//});
 
 //middleware 3
 app.Run(async (HttpContext context) => {
