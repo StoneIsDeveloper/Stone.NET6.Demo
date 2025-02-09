@@ -17,7 +17,8 @@ namespace Stone.NET6.Demo.CustomMiddleware
         public async Task Invoke(HttpContext httpContext)
         {
             //before logic
-            if(httpContext.Request.Query.ContainsKey("firstname"))
+            
+            if (httpContext.Request.Query.ContainsKey("firstname"))
             {
                 string name = httpContext.Request.Query["firstname"];
                 await httpContext.Response.WriteAsync(name);
